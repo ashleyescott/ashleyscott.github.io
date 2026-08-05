@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Rivera — Public Policy &amp; Administration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #14213D;
+    --ink-soft: #2C3A5E;
+    --paper: #FAF9F6;
+    --paper-tint: #EFEEE9;
+    --panel: #FFFFFF;
+    --line: #DCD9D1;
+    --accent: #C8102E;
+    --accent-soft: #F3D9DD;
+    --gold: #B8860B;
+    --slate: #5B6472;
+    --slate-light: #8A93A0;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --max-w: 1080px;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+  ul{ list-style: none; }
+  img{ max-width: 100%; display:block; }
+
+  .wrap{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* ---------- NAV ---------- */
+  header.site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,249,246,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-mark{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .nav-mark .seal{
+    width: 30px; height:30px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  nav.links{
+    display:flex;
+    gap: 28px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+  nav.links a{
+    position: relative;
+    padding: 4px 0;
+    color: var(--ink-soft);
+    transition: color .15s ease;
+  }
+  nav.links a:hover{ color: var(--accent); }
+  nav.links a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:-2px;
+    width:0; height:2px;
+    background: var(--accent);
+    transition: width .2s ease;
+  }
+  nav.links a:hover::after{ width:100%; }
+
+  .nav-cta{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    border: 1.5px solid var(--ink);
+    padding: 8px 14px;
+    border-radius: 2px;
+    transition: background .15s ease, color .15s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover{ background: var(--ink); color: var(--paper); }
+
+  .nav-toggle{
+    display:none;
+    background:none; border:none;
+    flex-direction: column; gap: 5px;
+    cursor:pointer;
+    padding: 8px;
+  }
+  .nav-toggle span{
+    width: 22px; height: 2px; background: var(--ink); display:block;
+  }
+
+  /* ---------- HERO ---------- */
+  section.hero{
+    padding: 88px 0 72px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 720px){
+    .hero-grid{ grid-template-columns: 1fr; gap: 32px; text-align: left; }
+  }
+
+  .photo-frame{
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink);
+    padding: 6px;
+  }
+  @media (max-width: 720px){
+    .photo-frame{ width: 160px; height: 160px; }
+  }
+  .photo-inner{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--paper-tint);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow: hidden;
+  }
+  .photo-inner img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .photo-placeholder{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--slate-light);
+    text-align: center;
+    padding: 0 24px;
+    line-height: 1.5;
+  }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  h1.name{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(36px, 5.5vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .role-line{
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--slate);
+    margin-bottom: 22px;
+  }
+  .role-line strong{ color: var(--ink); font-weight: 600; }
+
+  .hero-bio{
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin-bottom: 30px;
+  }
+
+  .hero-actions{
+    display:flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    padding: 13px 22px;
+    border-radius: 2px;
+    display: inline-block;
+    transition: transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-primary{ background: var(--ink); color: var(--paper); border: 1.5px solid var(--ink); }
+  .btn-primary:hover{ background: var(--accent); border-color: var(--accent); transform: translateY(-1px); }
+  .btn-ghost{ border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn-ghost:hover{ background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{ padding: 84px 0; }
+  section.alt{ background: var(--paper-tint); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .section-head .tag{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display:block;
+  }
+  h2.section-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 38px);
+    letter-spacing: -0.01em;
+  }
+  .section-note{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--slate-light);
+    max-width: 260px;
+    text-align: right;
+  }
+  @media (max-width: 640px){
+    .section-note{ text-align:left; }
+  }
+
+  /* ---------- RESEARCH ---------- */
+  .paper-list{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .paper{
+    background: var(--panel);
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 28px;
+  }
+  @media (max-width: 720px){
+    .paper{ grid-template-columns: 1fr; gap: 14px; }
+  }
+  .paper-status{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--slate);
+    align-self: start;
+  }
+  .paper-status .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--accent);
+    display:inline-block;
+    margin-right: 7px;
+  }
+  .paper h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 21px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .paper .venue{
+    font-size: 13.5px;
+    color: var(--slate);
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+  .paper p.abstract{
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin-bottom: 16px;
+  }
+  .tags{
+    display:flex; flex-wrap: wrap; gap: 8px;
+  }
+  .tags span{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--slate);
+    border: 1px solid var(--line);
+    padding: 4px 9px;
+    border-radius: 20px;
+  }
+
+  /* ---------- TEACHING ---------- */
+  .teach-grid{
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px;
+  }
+  @media (max-width: 860px){
+    .teach-grid{ grid-template-columns: 1fr; }
+  }
+  .philosophy{
+    border-left: 3px solid var(--accent);
+    padding-left: 24px;
+  }
+  .philosophy p{
+    font-family: var(--font-display);
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .philosophy .attribution{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--slate-light);
+  }
+
+  .course-list{ display:flex; flex-direction: column; }
+  .course{
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .course:first-child{ padding-top:0; }
+  .course-name{ font-weight: 600; font-size: 15px; }
+  .course-role{
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--slate);
+    margin-top: 4px;
+  }
+  .course-term{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--slate-light);
+    white-space: nowrap;
+  }
+
+  /* ---------- CV ---------- */
+  .cv-top{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 48px;
+    padding: 24px 28px;
+    border: 1.5px solid var(--ink);
+    background: var(--panel);
+  }
+  .cv-top p{ font-size: 14.5px; color: var(--slate); max-width: 480px; }
+  .cv-top strong{ color: var(--ink); }
+
+  .cv-columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  @media (max-width: 760px){
+    .cv-columns{ grid-template-columns: 1fr; }
+  }
+  .cv-block{ margin-bottom: 40px; }
+  .cv-block h3{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cv-item{ margin-bottom: 16px; }
+  .cv-item .row1{
+    display:flex; justify-content: space-between; gap: 10px;
+    font-weight: 600; font-size: 14.5px;
+  }
+  .cv-item .row1 .yr{
+    font-family: var(--font-mono);
+    font-weight: 400;
+    color: var(--slate-light);
+    font-size: 12.5px;
+    white-space: nowrap;
+  }
+  .cv-item .row2{
+    font-size: 13.5px;
+    color: var(--slate);
+    margin-top: 3px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding: 48px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+  .footer-inner{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .footer-links{
+    display:flex; gap: 22px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+  .footer-links a{ color: var(--slate); transition: color .15s ease; }
+  .footer-links a:hover{ color: var(--accent); }
+  .copyright{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--slate-light);
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{ opacity:1; transform: none; }
+
+  /* ---------- mobile nav ---------- */
+  @media (max-width: 780px){
+    nav.links{
+      position: absolute;
+      top: 100%; left:0; right:0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      flex-direction: column;
+      padding: 20px 32px;
+      gap: 18px;
+      display: none;
+    }
+    nav.links.open{ display:flex; }
+    .nav-cta{ display:none; }
+    .nav-toggle{ display:flex; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-mark">
+      <span class="seal">AR</span>
+      Alex&nbsp;Rivera
+    </div>
+    <nav class="links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#research">Research</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#cv">CV</a>
+    </nav>
+    <a href="#cv" class="nav-cta">Download CV ↓</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="photo-frame">
+        <div class="photo-inner">
+          <!-- Replace this div with: <img src="your-photo.jpg" alt="Alex Rivera"> -->
+          <span class="photo-placeholder">YOUR<br>PHOTO<br>HERE</span>
+        </div>
+      </div>
+
+      <div>
+        <span class="eyebrow">PhD Candidate · Public Policy &amp; Administration</span>
+        <h1 class="name">Alex Rivera</h1>
+        <p class="role-line"><strong>Department of Public Policy</strong>, Whitfield University — Expected completion, May 2027</p>
+
+        <p class="hero-bio">
+          My research examines how street-level administrative choices shape who actually receives public benefits — combining
+          large-scale administrative data with fieldwork inside state welfare offices. I study the gap between policy as written
+          and policy as delivered, and what that gap costs the people it's meant to serve.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#research" class="btn btn-primary">Read the research →</a>
+          <a href="#cv" class="btn btn-ghost">View full CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="tag">Research</span>
+        <h2 class="section-title">Papers &amp; Working Projects</h2>
+      </div>
+      <p class="section-note">Job market paper marked first. Drafts available on request.</p>
+    </div>
+
+    <div class="paper-list reveal">
+      <div class="paper">
+        <div class="paper-status"><span class="dot"></span>Job Market Paper</div>
+        <div>
+          <h3>Governing at the Margins: Administrative Discretion and Equity in Safety-Net Delivery</h3>
+          <p class="venue">Working paper — under review</p>
+          <p class="abstract">
+            Using ten years of caseworker-level administrative records from three state SNAP agencies, I show that discretionary
+            processing decisions — not eligibility rules — account for a substantial share of racial disparities in benefit
+            approval speed. I identify the organizational conditions under which discretion narrows rather than widens these gaps.
+          </p>
+          <div class="tags">
+            <span>Street-level bureaucracy</span>
+            <span>Administrative burden</span>
+            <span>Causal inference</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-status"><span class="dot"></span>Working Paper</div>
+        <div>
+          <h3>Waiting as Policy: Queue Design and Take-Up in Means-Tested Programs</h3>
+          <p class="venue">Prepared for submission, Journal of Public Administration Research and Theory</p>
+          <p class="abstract">
+            A field experiment with a mid-size county benefits office testing how appointment scheduling design affects
+            application completion among first-time applicants, with attention to compounding effects for non-English speakers.
+          </p>
+          <div class="tags">
+            <span>Field experiment</span>
+            <span>Program take-up</span>
+            <span>Language access</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-status"><span class="dot"></span>In Progress</div>
+        <div>
+          <h3>Algorithmic Triage in Public Agencies: A Comparative Case Study</h3>
+          <p class="venue">Fieldwork ongoing — three state agencies</p>
+          <p class="abstract">
+            Comparative case study of algorithmic risk-scoring tools adopted by three state child welfare agencies, tracing how
+            frontline staff interpret, override, or defer to automated recommendations in practice.
+          </p>
+          <div class="tags">
+            <span>Algorithmic governance</span>
+            <span>Qualitative methods</span>
+            <span>Child welfare</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="teaching">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="tag">Teaching</span>
+        <h2 class="section-title">Teaching Experience</h2>
+      </div>
+      <p class="section-note">Full syllabi and evaluations available on request.</p>
+    </div>
+
+    <div class="teach-grid reveal">
+      <div class="philosophy">
+        <p>"Policy students learn the most when they have to defend a recommendation to someone it will actually affect —
+        not just to a rubric."</p>
+        <div class="attribution">— From teaching statement, available in full CV</div>
+      </div>
+
+      <div class="course-list">
+        <div class="course">
+          <div>
+            <div class="course-name">Instructor of Record — Policy Analysis Methods</div>
+            <div class="course-role">Undergraduate, core methods sequence</div>
+          </div>
+          <div class="course-term">Fall 2025</div>
+        </div>
+        <div class="course">
+          <div>
+            <div class="course-name">Instructor of Record — Public Budgeting &amp; Finance</div>
+            <div class="course-role">Undergraduate</div>
+          </div>
+          <div class="course-term">Spring 2025</div>
+        </div>
+        <div class="course">
+          <div>
+            <div class="course-name">Teaching Assistant — American Political Institutions</div>
+            <div class="course-role">Prof. D. Whitmore · led weekly discussion sections</div>
+          </div>
+          <div class="course-term">2022 – 2024</div>
+        </div>
+        <div class="course">
+          <div>
+            <div class="course-name">Teaching Assistant — Quantitative Methods for Policy</div>
+            <div class="course-role">Prof. S. Nakamura · graduate core sequence</div>
+          </div>
+          <div class="course-term">2021 – 2022</div>
+        </div>
+        <div class="course">
+          <div>
+            <div class="course-name">Guest Lecturer — "Discretion in the Administrative State"</div>
+            <div class="course-role">Graduate seminar, Public Management</div>
+          </div>
+          <div class="course-term">2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cv">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="tag">Curriculum Vitae</span>
+        <h2 class="section-title">CV Summary</h2>
+      </div>
+      <p class="section-note">Selected highlights below. Full CV available as PDF.</p>
+    </div>
+
+    <div class="cv-top reveal">
+      <p><strong>Full CV (PDF)</strong> — includes complete publication list, references, and grant history.</p>
+      <a href="#" class="btn btn-primary">Download full CV (PDF) ↓</a>
+    </div>
+
+    <div class="cv-columns reveal">
+      <div>
+        <div class="cv-block">
+          <h3>Education</h3>
+          <div class="cv-item">
+            <div class="row1"><span>Ph.D., Public Policy &amp; Administration</span><span class="yr">Exp. 2027</span></div>
+            <div class="row2">Whitfield University</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>M.P.P.</span><span class="yr">2021</span></div>
+            <div class="row2">Whitfield University</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>B.A., Political Science &amp; Economics</span><span class="yr">2018</span></div>
+            <div class="row2">Lindmere College</div>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <h3>Fellowships &amp; Awards</h3>
+          <div class="cv-item">
+            <div class="row1"><span>Dissertation Completion Fellowship</span><span class="yr">2026</span></div>
+            <div class="row2">Whitfield University Graduate School</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>APPAM Best Student Poster Award</span><span class="yr">2025</span></div>
+            <div class="row2">Association for Public Policy Analysis &amp; Management</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>Summer Research Grant</span><span class="yr">2023, 2024</span></div>
+            <div class="row2">Institute for Policy Research</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="cv-block">
+          <h3>Presentations</h3>
+          <div class="cv-item">
+            <div class="row1"><span>APPAM Fall Research Conference</span><span class="yr">2025</span></div>
+            <div class="row2">"Governing at the Margins" — paper session</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>Midwest Political Science Assoc.</span><span class="yr">2024</span></div>
+            <div class="row2">"Waiting as Policy" — poster session</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>Whitfield Policy Workshop</span><span class="yr">2023, 2024, 2025</span></div>
+            <div class="row2">Invited departmental workshop presenter</div>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <h3>Service &amp; Skills</h3>
+          <div class="cv-item">
+            <div class="row1"><span>Graduate Student Representative</span><span class="yr">2024–25</span></div>
+            <div class="row2">Department Curriculum Committee</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>Peer Reviewer</span><span class="yr">2024–</span></div>
+            <div class="row2">Journal of Public Administration Research and Theory</div>
+          </div>
+          <div class="cv-item">
+            <div class="row1"><span>Methods</span></div>
+            <div class="row2">R, Stata, causal inference, qualitative coding (NVivo), GIS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="copyright">© 2026 Alex Rivera. Last updated August 2026.</div>
+    <div class="footer-links">
+      <a href="mailto:alex.rivera@whitfield.edu">Email</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Google Scholar</a>
+      <a href="#">CV (PDF)</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
